@@ -2,13 +2,12 @@ body{
     background-color: rgb(255, 255, 255);
     color: white;
     text-align: center;
+    
+    
 }
 .container{
     width: 800px;
     margin: 100px auto;
     background-color: black;
 
-}
-h1{
-    
 }

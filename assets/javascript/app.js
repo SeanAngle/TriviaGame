@@ -1,6 +1,7 @@
 var right = 0;
 var wrong = 0;
 var totalScore = 0;
+var unanswered = 0;
 
 
 
@@ -13,13 +14,18 @@ var timeVar = setInterval(function(){
 
 
 //Setting starting time to 90 seconds
-var time = 10;
+var time = 100;
 
 //Calling function to start timer
 function quizTimer() {
     document.getElementById("timer").innerHTML = ("Finish before time runs out! <br>" + time--);
     if (time === 0){
         clearInterval(timeVar);
+        $("#correct").text(right);
+        $("#incorrect").text(wrong);
+        unanswered = 10-(right+wrong);
+        $("#unanswered").text("Unanswered: " + unanswered);
+
         
     }
 };
@@ -34,35 +40,56 @@ function quizTimer() {
 
 //Results function
 function getResults(){
-    var input = $(".answers").attr("value"); 
+    var input = $('input[name="answerChoice"]:checked').val(); 
     
-    if (input == 1 ){
+    if (input === "1" ){
         right++;
     }else{
         wrong++;
-    };
+    }
+    console.log(input);
+   
     
 
     // var rightChoice = document.getElementsByClassName();
     // var wrongChoice = 0;
     // var userGuess = "";
+
 };
 
 
 function finish(){
-    var totalScore = right - wrong;
+    var answersChecked = $(".answers:checked");
+
+    for (var i = 0; i < answersChecked.length; i++){
+        if(answersChecked[i].value === "1"){
+            right++;
+        }else if (answersChecked[i].value === "0"){
+            wrong++;
+        }console.log(answersChecked);
+    }
+    clearInterval(timeVar);
     
-    console.log(totalScore);
     
+    $("#correct").text("Correct: " + right);
+    $("#incorrect").text("Incorrect: " + wrong);
+    unanswered = 10-(right+wrong);
+    $("#unanswered").text("Unanswered: " + unanswered);
 
 
 };
 
+
+
 $("document").on("click" , ".answers",function(){
     getResults();
+    console.log(right);
 });
+
+
 $("#finished").on("click", function(){
     finish();
+    
 });
 
 
