@@ -2,13 +2,23 @@ var right = 0;
 var wrong = 0;
 var totalScore = 0;
 var unanswered = 0;
+var timeVar ;
 
+$("#scoreBoard").hide();
+$("#questionDiv").hide();
+
+$("#start").on("click", function(){
+    $("#questionDiv").show();
+    $("#start").hide();
+    timeVar = setInterval(function(){
+        quizTimer()
+    }, 1000);
+
+})
 
 
 //Setting timer interval to 1 second
-var timeVar = setInterval(function(){
-    quizTimer()
-}, 1000);
+
 
 //Making the timer stop at 0
 
@@ -25,6 +35,9 @@ function quizTimer() {
         $("#incorrect").text(wrong);
         unanswered = 10-(right+wrong);
         $("#unanswered").text("Unanswered: " + unanswered);
+        $("#scoreBoard").show();
+        $("#questionDiv").hide();
+        $("#timer").hide();
 
         
     }
@@ -75,6 +88,9 @@ function finish(){
     $("#incorrect").text("Incorrect: " + wrong);
     unanswered = 10-(right+wrong);
     $("#unanswered").text("Unanswered: " + unanswered);
+    $("#scoreBoard").show();
+    $("#questionDiv").hide();
+    $("#timer").hide();
 
 
 };
